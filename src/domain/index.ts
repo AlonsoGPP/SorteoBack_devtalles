@@ -1,4 +1,4 @@
-export * from './dtos/participante.dto'
+export * from './dtos/participation.dto'
 export * from './dtos/register-user.dto'
 export * from './dtos/register-draw.dto'
 
@@ -21,3 +21,4 @@ export * from './use-case/draws/register-draw.use-case'
 export * from './use-case/draws/view-all-draws.use-case'
 export * from './use-case/draws/delete-draw.use-case'
 export * from './use-case/draws/update-draw.use-case'
+export * from './use-case/participations/register-participatio-draw.use-case'

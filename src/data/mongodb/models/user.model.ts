@@ -2,6 +2,7 @@ import { Document, Schema, model } from "mongoose";
 
 // Interfaz para el documento de usuario
  interface UserDocument extends Document {
+    id:string
     discordId: string;
     email: string;
     username: string;

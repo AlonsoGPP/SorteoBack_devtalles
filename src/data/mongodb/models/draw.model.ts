@@ -1,6 +1,7 @@
 import {Document, Schema, model} from 'mongoose'
 
 interface DrawDocument extends Document {
+    id:string
     title: string;
     description: string;
     dueDate:Date;

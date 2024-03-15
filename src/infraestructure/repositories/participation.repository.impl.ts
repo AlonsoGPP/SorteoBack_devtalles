@@ -1,6 +1,6 @@
 import { FilterQuery, Document } from "mongoose";
 import { ParticipationDocument } from "../../data";
-import { ParticipationRepository } from "../../domain";
+import { ParticipationDto, ParticipationRepository } from "../../domain";
 import { ParticipationDataSource } from '../../domain/datasources/participation.datasource-mongo';
 
 export class ParticipationRepositoryImpl implements ParticipationRepository {
@@ -24,6 +24,9 @@ export class ParticipationRepositoryImpl implements ParticipationRepository {
     }
     getAll(): Promise<ParticipationDocument[]> {
         return this.datasource.getAll();
+    }
+     createParticipation(participationDto:ParticipationDto):Promise<ParticipationDocument>{
+        return this.datasource.createParticipation(participationDto);
     }
 
 }
