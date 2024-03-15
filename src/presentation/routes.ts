@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { DiscordClientRoutes } from "./discord/routes";
 import passport from "passport";
 import { AuthRoutes } from "./auth/auth.routes";
+import { DrawRoutes } from "./draw/draw.routes";
 
 export class AppRoutes{
     static  get routes(): Router{
@@ -10,6 +10,7 @@ export class AppRoutes{
         //definir todas mis rutas principales
        // router.use('/api/discord', DiscordClientRoutes.routes)
         router.use('/api/auth',AuthRoutes.routes)
+        router.use('/api/draw', DrawRoutes.routes)
         router.get('/api/auth/discord-redirect', passport.authenticate('discord', {
             failureRedirect: '/'
         }), function(req, res) {

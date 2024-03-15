@@ -10,7 +10,7 @@ import { AuthRepositoryImpl } from '../repositories/auth.repository.impl';
 import { AuthDatasourceImpl } from '../datasources/auth.datasource-mongo.impl';
 import { RegisterUserDto } from '../../domain/dtos/register-user.dto';
 
-passport.serializeUser((user, done) => { //aqui da el error
+passport.serializeUser((user, done) => { 
     done(null, user.id); 
 });                                                                                                              
 passport.deserializeUser(async (id,done)=>{

@@ -3,6 +3,7 @@ import {Document, Schema, model} from 'mongoose'
 interface DrawDocument extends Document {
     title: string;
     description: string;
+    dueDate:Date;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -15,10 +16,14 @@ title:{
 description:{
     type:String,
 
+},
+dueDate:{
+    type:Date,
+    required:[true, 'Due Date is Required']
 }
 },{ timestamps:true});
 
-const DrawModel = model('Draw', drawSchema);
+const DrawModel = model<DrawDocument>('Draw', drawSchema);
 
 export{
     DrawModel,
