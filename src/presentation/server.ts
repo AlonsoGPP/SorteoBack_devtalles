@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import '../data/strategies/discordStrategy';
+import '../infraestructure/strategies/discordStrategy';
 import passport  from 'passport';
 import session from 'express-session'
 interface Options{
