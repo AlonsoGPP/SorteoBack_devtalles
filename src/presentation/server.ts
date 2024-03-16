@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import '../infraestructure/strategies/discordStrategy';
 import passport  from 'passport';
 import session from 'express-session'
+import cors from 'cors';
 interface Options{
   port?: number;
   routes: Router
@@ -28,7 +29,7 @@ export class Server {
   async start() {
 
     //Middleware
- 
+    this.app.use(cors())
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended:true})); //x-www-urlencoded
     this.app.use(session({secret: "secret" , saveUninitialized:false,resave: false}));

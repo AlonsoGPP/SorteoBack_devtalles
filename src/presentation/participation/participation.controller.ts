@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { CustomError, DrawRepository, ParticipationDto } from "../../domain";
-import { ParticipationRepository } from '../../domain';
-import { RegisterPartcipantInDraw } from '../../domain';
-import { UserRepository } from '../../domain/';
+import { CustomError, DrawRepository, ParticipationDto,ParticipationRepository,RegisterPartcipantInDraw,UserRepository } from "../../domain";
 import { isValidObjectId } from "mongoose";
+import { ViewParticipationsInDraw } from "../../domain/use-case/participations/view-draw-participations.use-case";
+import { ChooseWinnerRamdomly } from "../../domain/use-case/participations/choose-winner-ramdomly.use-case";
 
 export class ParticipationController {
     constructor(
@@ -23,6 +22,20 @@ export class ParticipationController {
             .execute(participationDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res))
+    }
+    participationListByDrawId= (req: Request, res: Response) => {
+        const {drawId} = req.params;
+        new ViewParticipationsInDraw(this.drawRepository,this.participationRepository)
+        .execute(drawId)
+        .then(data => res.json(data))
+        .catch(error => this.handleError(error, res))
+    }
+    getWinnerRamdomly = (req: Request, res: Response) => {
+        const {drawId} = req.params;
+        new ChooseWinnerRamdomly(this.drawRepository,this.participationRepository)
+        .execute(drawId!)
+        .then(data => res.json(data))
+        .catch(error => this.handleError(error, res))
     }
     private handleError = (error: unknown, res: Response) => {
         if (error instanceof CustomError) {

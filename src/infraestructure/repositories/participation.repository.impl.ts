@@ -28,5 +28,11 @@ export class ParticipationRepositoryImpl implements ParticipationRepository {
      createParticipation(participationDto:ParticipationDto):Promise<ParticipationDocument>{
         return this.datasource.createParticipation(participationDto);
     }
+    async participationListByDrawId(drawId:string):Promise<ParticipationDocument[]>{
+        return this.datasource.participationListByDrawId(drawId);
+    }
+    async getWinnerRamdomly(drawId:string): Promise<ParticipationDocument>{
+        return this.datasource.getWinnerRamdomly(drawId);
+    }
 
 }

@@ -9,6 +9,7 @@ import { Document, Schema, model } from "mongoose";
     guilds?: Array<unknown>; // o cualquier otro tipo que represente los IDs de los gremios
     createdAt: Date;
     updatedAt: Date;
+    verified?:boolean;
   }
 
 const userSchema = new Schema({
@@ -26,6 +27,10 @@ const userSchema = new Schema({
     guilds:{
         type:Array,
     },
+    verified:{
+        type:Boolean,
+        default:false
+    }
    
 },{ timestamps:true});
 

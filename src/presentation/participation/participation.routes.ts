@@ -14,6 +14,8 @@ export class ParticipationRoutes {
         const controller = new ParticipationController(participationRepository,drawRepository,userRepository);
         const router = Router();
         router.post('/', controller.registerParticipation);
+        router.get('/:drawId', controller.participationListByDrawId);
+        router.get('/ramdomwinner/:drawId',controller.getWinnerRamdomly)
         // router.get('/', controller.viewAllDraws)
         // router.delete('/:id', controller.deleteDraw)
         // router.put('/:id', controller.updateDraw)

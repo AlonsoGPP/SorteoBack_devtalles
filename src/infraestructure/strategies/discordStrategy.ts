@@ -34,7 +34,7 @@ passport.use(//modificar scopes de  acuerdo a requerimientos
         const userRepository= new UserRepositoryImpl(new UserDatasourceImpl(UserModel));
         try {
           const user = await userRepository.getOne({ discordId: profile.id });
-  
+            //validar que el usuario este en guild
           if (user) return done(null, user);//caso donde el usuario ya existe
           // const newUser = new UserModel({
           //   discordId: profile.id,
@@ -45,7 +45,8 @@ passport.use(//modificar scopes de  acuerdo a requerimientos
           const [error, registerUserDto] = RegisterUserDto.create({
             email:profile.email,
             discordId:profile.id,
-            username:profile.username 
+            username:profile.username,
+            verified:true 
           });
           if(error) throw error;
   

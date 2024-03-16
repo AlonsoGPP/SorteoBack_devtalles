@@ -7,23 +7,27 @@ import { UserMapper } from "../mappers/user.mapper";
 
 export class AuthDatasourceImpl implements AuthDataSource {
     async registerUser(registerUserDto: RegisterUserDto): Promise<UserEntity> {
-        const{username,discordId,email} =registerUserDto;
-        try{
-            const exist=await UserModel.findOne({discordId}) || await UserModel.findOne({email});
-            if(exist) throw  CustomError.badRequest('El usuario ya se encuentra registrado');
+        const { username, discordId, email } = registerUserDto;
+        try {
+            let existDiscordId=false;
+            if(discordId!='notgiven'){
+             existDiscordId = !!await UserModel.findOne({ discordId });
+            }
+            const existEmail = !!await UserModel.findOne({ email });
+            if (existDiscordId || existEmail) throw CustomError.badRequest('El discordId o email ya se encuentra registrado');
             const newUser = new UserModel({
                 discordId: discordId,
-                email:email,
+                email: email,
                 username: username,
-                
-              });
-             const savedUser=await newUser.save();
-             return UserMapper.userEntityFromObject(savedUser);
-            
-        }catch(err){
+
+            });
+            const savedUser = await newUser.save();
+            return UserMapper.userEntityFromObject(savedUser);
+
+        } catch (err) {
             throw err;
         }
     }
-   
-    
+
+
 }

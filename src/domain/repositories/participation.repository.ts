@@ -4,4 +4,6 @@ import { BaseRepository } from "./base.repository";
 
 export abstract class ParticipationRepository extends BaseRepository<ParticipationDocument>{
     abstract  createParticipation(participationDto:ParticipationDto):Promise<ParticipationDocument>;
+    abstract participationListByDrawId(drawId:string):Promise<ParticipationDocument[]>;
+    abstract getWinnerRamdomly(drawId:string): Promise<ParticipationDocument>;
 }

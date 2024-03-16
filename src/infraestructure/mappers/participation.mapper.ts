@@ -12,14 +12,13 @@ export class ParticipationMapper{
     
         if ( !drawId ) throw CustomError.badRequest('Missing drawId');
         if ( !userId ) throw CustomError.badRequest('Missing userId');
-         if ( !participationDate ) throw CustomError.badRequest('Missing participationDate');
-        // if ( !roles ) throw CustomError.badRequest('Missing roles');
+        if ( !participationDate ) throw CustomError.badRequest('Missing participationDate');
     
     
         return new ParticipationEntity(
           _id || id,
-          drawId,
           userId,
+          drawId,
           participationDate
         );
       }

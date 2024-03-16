@@ -1,11 +1,9 @@
-import { ObjectId } from "mongoose";
 import { ParticipationDto } from "../../dtos/participation.dto";
 import { ParticipationEntity } from "../../entities/participation.entity";
 import { CustomError } from "../../errors/custom.error";
 import { DrawRepository } from "../../repositories/draw.repository";
 import { ParticipationRepository } from "../../repositories/participation.repository";
 import { UserRepository } from '../../repositories/user.repository';
-import { ParticipationDocument } from "../../../data";
 import { ParticipationMapper } from "../../../infraestructure/mappers/participation.mapper";
 
 interface RegisterPartcipantInDrawUseCase {

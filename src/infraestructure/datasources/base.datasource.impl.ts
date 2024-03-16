@@ -25,7 +25,7 @@ export class BaseDataSourceImpl<T extends MongooseDocument<T>> implements BaseDa
         return await this.model.findById(id);
     }
     async getOne(field: FilterQuery<Document>): Promise<T | null> {
-        return await this.model.findOne(field) as T | null;
+        return await this.model.findOne(field);
     }
 
     async update(id: string, updatedEntity: Partial<T>): Promise<T | null> {

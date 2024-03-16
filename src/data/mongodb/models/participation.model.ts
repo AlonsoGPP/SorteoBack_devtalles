@@ -1,6 +1,7 @@
 import { Document, Schema, model } from "mongoose";
 
 interface ParticipationDocument extends Document {
+    id:string;
     userId:Schema.Types.ObjectId;
     drawId: Schema.Types.ObjectId;
     participationDate: Date;
