@@ -7,6 +7,7 @@ import { Document, Schema, model } from "mongoose";
     email: string;
     username: string;
     guilds?: Array<unknown>; // o cualquier otro tipo que represente los IDs de los gremios
+    password:string;
     createdAt: Date;
     updatedAt: Date;
     verified?:boolean;
@@ -23,6 +24,10 @@ const userSchema = new Schema({
     username:{
         type:String,
         required:true
+    },
+    password:{
+        type:String,
+        requiered:true
     },
     guilds:{
         type:Array,

@@ -1,6 +1,6 @@
 import {Strategy} from 'passport-discord';
 import passport from 'passport';
-import { UserModel } from '../../data/mongodb/models/user.model'
+import { UserDocument, UserModel } from '../../data/mongodb/models/user.model'
 import {envs} from '../../config'
 
 import { UserRepositoryImpl } from '../repositories/user.repository.impl';
@@ -34,7 +34,7 @@ passport.use(//modificar scopes de  acuerdo a requerimientos
         const userRepository= new UserRepositoryImpl(new UserDatasourceImpl(UserModel));
         try {
           const user = await userRepository.getOne({ discordId: profile.id });
-            //validar que el usuario este en guild
+            //TODO:validar que el usuario este en guild indicado en env
           if (user) return done(null, user);//caso donde el usuario ya existe
           // const newUser = new UserModel({
           //   discordId: profile.id,
@@ -42,17 +42,16 @@ passport.use(//modificar scopes de  acuerdo a requerimientos
           //   username: profile.username,
           //   guilds: profile.guilds,
           // });
-          const [error, registerUserDto] = RegisterUserDto.create({
+          const newUser = new UserModel({
             email:profile.email,
             discordId:profile.id,
             username:profile.username,
             verified:true 
           });
-          if(error) throw error;
   
           // const savedUser = await userRepository.create(newUser); // en este caso sucede registro
-          const savedUser= await new RegisterUser(new AuthRepositoryImpl(new AuthDatasourceImpl())).execute(registerUserDto!);
-          done(null, savedUser);
+          //const savedUser= await new RegisterUser(new AuthRepositoryImpl(new AuthDatasourceImpl())).execute(registerUserDto!);
+          done(null, newUser);
         } catch (error: any) {
           console.error(error);
           return done(error  , undefined);

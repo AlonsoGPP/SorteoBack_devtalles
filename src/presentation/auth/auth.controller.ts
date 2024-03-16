@@ -10,13 +10,14 @@ export class AuthController{
     }
     static authUser= passport.authenticate('discord');//implictamente tiene un req,res,next
     
-    registerUserManually =async (req: Request,res:Response)=>{//only for testing
-        const{email, discordId,username}=req.body
+    registerUser =async (req: Request,res:Response)=>{//only for testing
+        const{email, discordId,username, password,verified}=req.body
         const [error, registerUserDto] = RegisterUserDto.create({
             email:email,
             discordId:discordId||'notgiven',
+            password:password,
             username:username,
-            verified:false
+            verified:verified||false
           });
           if (error) return res.status(400).json({ error });
          new RegisterUser(this.authRepository)

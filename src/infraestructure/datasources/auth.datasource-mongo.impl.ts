@@ -1,3 +1,4 @@
+import { BcryptAdapter } from "../../config/bcrypt";
 import { UserModel } from "../../data";
 import { AuthDataSource } from "../../domain/datasources/auth.datasource-mongo";
 import { RegisterUserDto } from "../../domain/dtos/register-user.dto";
@@ -7,7 +8,7 @@ import { UserMapper } from "../mappers/user.mapper";
 
 export class AuthDatasourceImpl implements AuthDataSource {
     async registerUser(registerUserDto: RegisterUserDto): Promise<UserEntity> {
-        const { username, discordId, email } = registerUserDto;
+        const { username, discordId, email, verified, password } = registerUserDto;
         try {
             let existDiscordId=false;
             if(discordId!='notgiven'){
@@ -19,6 +20,8 @@ export class AuthDatasourceImpl implements AuthDataSource {
                 discordId: discordId,
                 email: email,
                 username: username,
+                password:BcryptAdapter.hash(password),
+                verified:verified
 
             });
             const savedUser = await newUser.save();
@@ -28,6 +31,7 @@ export class AuthDatasourceImpl implements AuthDataSource {
             throw err;
         }
     }
+//TODO: login and jwt
 
 
 }

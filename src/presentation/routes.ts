@@ -3,6 +3,7 @@ import passport from "passport";
 import { AuthRoutes } from "./auth/auth.routes";
 import { DrawRoutes } from "./draw/draw.routes";
 import { ParticipationRoutes } from "./participation/participation.routes";
+import { UserEntity } from "../domain";
 
 export class AppRoutes{
     static  get routes(): Router{
@@ -16,7 +17,13 @@ export class AppRoutes{
         router.get('/api/auth/discord-redirect', passport.authenticate('discord', {
             failureRedirect: '/'
         }), function(req, res) {
-            res.redirect('/secretstuff') // Successful auth
+            // Successful auth
+            const { id, username, email, discordId,verified } = req.user as UserEntity;
+            const userData = JSON.stringify({ id, username, email, discordId, verified });
+    
+            // Codificar la cadena JSON en Base64
+            const encodedUserData = Buffer.from(userData).toString('base64');
+            res.redirect(`http://localhost:4200/register?data=${encodedUserData}`);//base link should be a env
         });
         // router.use('/api/user')
         // router.use('/api/products')

@@ -10,7 +10,7 @@ export class AuthRoutes{
         const router=Router();
         const controller = new AuthController(new AuthRepositoryImpl(new AuthDatasourceImpl));
         router.get('/discord',AuthController.authUser)//se delega a passport
-        router.post('/register', controller.registerUserManually)
+        router.post('/register', controller.registerUser)
 
         return router;
     }
